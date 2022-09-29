@@ -11,5 +11,6 @@
 <li>スタートとストップを繰り返します。</li>
 <li>全て揃うコメントが出てきます。</li>
 <li>リセットを押して再度始めることができます。</li>
+<br>
 
-![スクリーンショット 2022-09-30 0 40 56](https://user-images.githubusercontent.com/44188202/193076671-f63c79e0-95d4-4387-a9ba-4cccf318bb78.png)
+![022-09-30-0](https://user-images.githubusercontent.com/44188202/193076939-1e05a9f5-f803-4a02-bb7b-0b86b3960302.png)
