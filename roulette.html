@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>ルーレット</title>
+    <style type="text/css">
+        table{
+            margin: 0 auto;
+            border-collapse: collapse;
+            border: solid 5px;
+        }
+        tr {
+            
+        }
+        td {
+            padding: 10px;
+            text-align: center;
+            font-size: 40px;
+            border: solid 1px;
+        }
+        .pick {
+            background-color: #ffbf7f;
+        }
+        .selected {
+            background-color: #ff6347;
+        }
+        #button {
+            padding-top: 10px;
+            text-align: center;
+        }
+    </style>
+    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script>
+        var stock,num,idx,time,timerId,swap;
+        function count_start() {
+            timerId = setInterval(function() {
+                idx = Math.floor(Math.random()*num);
+                $('#box td').removeClass("selected");
+                $('#box td').eq(stock[idx]).addClass("selected");
+            },time);
+            $('#start').prop('disabled',true);
+            $('#stop').prop('disabled',false);
+            $('#reset').prop('disabled', false);
+        }
+        function count_stop() {
+            clearInterval(timerId);
+            $('#box td').eq(stock[idx]).addClass("pick");
+            num--;
+            swap = stock[num];
+            stock[num] = stock[idx];
+            stock[idx] = swap;
+            console.log(num);
+            console.log(swap);
+            console.log(stock[num]);
+            if (num <= 0) {
+                $('#start').prop('disabled', true);
+                $('#box td').removeClass("selected");
+                alert('コンプリート！\nリセットを押して再挑戦！！');
+            } else {
+                $('#start').prop('disabled', false);
+            }
+            $('#stop').prop('disabled', true);
+            $('#reset').prop('disabled', false);
+        }
+        function count_reset() {
+            clearInterval(timerId);
+            stock = [];//ストックリスト
+            for (var i = 0; i < 16; i++) stock.push(i);
+            num = 16;//残りマス
+            time = 10;//timerスピード
+            idx = null;//現在位置
+            $('#box td').removeClass("pick").removeClass("selected");
+            $('#start').prop('disabled', false);
+            $('#stop').prop('disabled', true);
+            $('#reset').prop('disabled', true);
+        }
+        // DOMの読み込みが全て完了したら
+        $(function() {
+            stock = [];//ストックリスト
+            for (var i = 0; i < 16; i++) stock.push(i);
+            num = 16;//残りマス
+            time = 10;//timerスピード
+            idx = null;//現在位置
+            $('#start').click(count_start);
+            $('#stop').click(count_stop);
+            $('#reset').click(count_reset);
+            console.log(count_stop);
+        });
+    </script>
+</head>
+<body>
+    <table id="box">
+        <tr><td>1</td><td>2</td><td>3</td><td>4</td></tr>
+        <tr><td>5</td><td>6</td><td>7</td><td>8</td></tr>
+        <tr><td>9</td><td>10</td><td>11</td><td>12</td></tr>
+        <tr><td>13</td><td>14</td><td>15</td><td>16</td></tr>
+    </table>
+    <div id='button'>
+        <button id='start'>スタート</button>
+        <button id='stop'>ストップ</button>
+        <button id='reset'>リセット</button>
+    </div>
+    <div id="div"></div>
+</body>
+</html>
